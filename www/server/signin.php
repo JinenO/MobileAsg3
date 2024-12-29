@@ -37,11 +37,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Birthday cannot be empty.";
     }
 
+    // Check if the email or username already exists in the database
+    $checkQuery = "SELECT * FROM Info WHERE Email = '$email' OR Username = '$username'";
+    $result = $conn->query($checkQuery);
+
+    if ($result->num_rows > 0) {
+        $errors[] = "The email or username is already registered. Please choose a different one or log in.";
+    }
+
     // If validation fails, display errors and exit
+    // If validation or duplication checks fail, display errors and exit
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p style='color:red;'>$error</p>";
         }
+        echo "<p><a href='../login.html'>Go to Login Page</a></p>";
         exit;
     }
 
@@ -54,8 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement and check for success
     if ($stmt->execute()) {
-        echo "<p style='color:green;'>Account created successfully!</p>";
-        echo "<p><a href='../login.html'>Go to Login Page</a></p>";
+        // Redirect to login page after successful account creation
+        header("Location: ../login.html");
+        exit; // Ensure no further code runs
     } else {
         echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
     }
