@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session
+
 // Database connection details
 $host = "sql102.infinityfree.com";
 $dbname = "if0_38001712_MobileAsg3";
@@ -46,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // If validation fails, display errors and exit
-    // If validation or duplication checks fail, display errors and exit
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p style='color:red;'>$error</p>";
@@ -64,9 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement and check for success
     if ($stmt->execute()) {
+        // Store username in session after successful account creation
+        $_SESSION['username'] = $username; // Store the username in session
+        
         // Redirect to login page after successful account creation
         header("Location: ../login.html");
-        exit; // Ensure no further code runs
+        exit;
     } else {
         echo "<p style='color:red;'>Error: " . $stmt->error . "</p>";
     }
