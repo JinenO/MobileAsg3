@@ -1,49 +1,107 @@
-// weather.js
-document.getElementById('weather-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the form from refreshing the page
+const apiKey = "01c348787bf83521c5c58da319e62121"; // Replace with your OpenWeatherMap API key
 
-    // Get the city name from the input field
-    const city = document.getElementById('city').value;
-
-    if (!city) {
-        alert("Please enter a city name.");
-        return;
-    }
-
-    // Your OpenWeather API key
-    const apiKey = '01c348787bf83521c5c58da319e62121'; // Your API key
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`; // Only city name in the query
-
-    // Make the API request
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.cod === 200) { // Successful response
-                const weather = data.weather[0].description;
-                const temperature = data.main.temp;
-                const humidity = data.main.humidity;
-                const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
-
-                // Display weather data
-                document.getElementById('weather-results').innerHTML = `
-                    <h3>Weather in ${city}</h3>
-                    <img src="${icon}" alt="Weather icon" />
-                    <p><strong>Description:</strong> ${weather}</p>
-                    <p><strong>Temperature:</strong> ${temperature}°C</p>
-                    <p><strong>Humidity:</strong> ${humidity}%</p>
-                `;
-                document.getElementById('error-message').style.display = 'none';
-                document.getElementById('weather-results').style.display = 'block';
-            } else {
-                // Show error message if city is not found
-                document.getElementById('error-message').textContent = 'City not found. Please check the city name and try again.';
-                document.getElementById('error-message').style.display = 'block';
-                document.getElementById('weather-results').style.display = 'none';
-            }
-        })
-        .catch(error => {
-            document.getElementById('error-message').textContent = 'Error fetching weather. Please try again later.';
-            document.getElementById('error-message').style.display = 'block';
-            document.getElementById('weather-results').style.display = 'none';
-        });
+// Handle Menu Button
+document.getElementById('menuBtn').addEventListener('click', function() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
 });
+
+// Handle Weather Search
+document.getElementById('searchBtn').addEventListener('click', function() {
+    const city = document.getElementById('cityInput').value;
+    if (city) {
+        fetchWeather(city);
+    } else {
+        alert("Please enter a city name");
+    }
+});
+
+// Handle Current Location
+document.getElementById('currentLocationBtn').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            fetchWeatherByLocation(lat, lon);
+        }, function(error) {
+            alert("Error fetching location: " + error.message);
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+});
+
+// Fetch Weather by City
+function fetchWeather(city) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayWeather(data))
+        .catch(error => alert("Error fetching weather data: " + error));
+}
+
+// Fetch Weather by Location
+function fetchWeatherByLocation(lat, lon) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayWeather(data))
+        .catch(error => alert("Error fetching weather data: " + error));
+}
+
+// Display Weather Data
+function displayWeather(data) {
+    const temperature = data.main.temp;
+    const weatherCondition = data.weather[0].description;
+    const humidity = data.main.humidity;
+
+    // Update Weather Details
+    document.getElementById('temperature').innerText = `Temperature: ${temperature}°C`;
+    document.getElementById('weatherCondition').innerText = `Condition: ${weatherCondition}`;
+    document.getElementById('humidity').innerText = `Humidity: ${humidity}%`;
+
+    // Fetch Forecast Data
+    fetchForecast(data.coord.lat, data.coord.lon);
+}
+
+// Fetch Forecast Data (Next 5 days)
+function fetchForecast(lat, lon) {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => displayForecast(data))
+        .catch(error => alert("Error fetching forecast data: " + error));
+}
+
+// Display Forecast Data
+function displayForecast(data) {
+    const temperatures = data.list.map(item => item.main.temp);
+    const avgTemp = temperatures.reduce((sum, temp) => sum + temp, 0) / temperatures.length;
+
+    // Update Average Temperature
+    document.getElementById('averageTemperature').innerText = `Average Temperature: ${avgTemp.toFixed(2)}°C`;
+
+    // Display Temperature Graph
+    const ctx = document.getElementById('temperatureChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.list.map(item => item.dt_txt), // Get date/time for x-axis
+            datasets: [{
+                label: 'Temperature (°C)',
+                data: temperatures,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+}

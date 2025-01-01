@@ -3,35 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News API</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Latest News</title>
     <link rel="stylesheet" href="css/news.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>News Articles</h1>
-        <p>Enter a keyword to get related news articles:</p>
+    <!-- Sidebar - Hidden by default -->
+    <div id="sidebar" class="sidebar">
+        <div class="profile">
+            <img id="profilePic" src="default-profile.jpg" alt="Profile Picture" />
+            <h3 id="username"></h3>
+            <p id="email"></p>
+          </div>
+        <div>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
 
-        <!-- Form to enter the news query -->
-        <form id="news-form" class="mb-4">
-            <div class="mb-3">
-                <label for="query" class="form-label">Keyword</label>
-                <input type="text" class="form-control" id="query" placeholder="Enter news keyword" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Get News</button>
-        </form>
-
-        <!-- Display news results or errors -->
-        <div id="news-results" class="mt-3" style="display:none;">
-            <div id="articles-list"></div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navbar -->
+        <div class="navbar">
+            <a href="home.html"><img src="home-icon.png" alt="Home"></a>
+            <img src="menu-icon.png" alt="Menu" id="menuBtn">
         </div>
 
-        <div id="error-message" class="alert alert-danger mt-3" style="display:none;"></div>
+        <h1>Latest News</h1>
 
-        <a href="dashboard.html" class="btn btn-secondary mt-3">Back to API Selection</a>
+        <!-- News List -->
+        <div id="newsList">
+            <!-- News items will be dynamically added here -->
+        </div>
+
+    </div>
+
+    <!-- Bottom Navbar -->
+    <div class="navbar-bottom">
+        <a href="home.html"><img src="home-icon.png" alt="Home"></a>
+        <a href="weather.html"><img src="weather-icon.png" alt="Weather"></a>
+        <a href="socialMedia.html"><img src="social-icon.png" alt="Social Media"></a>
+        <a href="news.html"><img src="news-icon.png" alt="News"></a>
     </div>
 
     <script src="js/news.js"></script>
 </body>
 </html>
+
 

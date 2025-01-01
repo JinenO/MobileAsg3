@@ -1,0 +1,187 @@
+/* General Body Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  transition: margin-left 0.3s;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(-250px); /* Sidebar is hidden by default */
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Show the sidebar when "open" class is added */
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#username {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+#email {
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+/* Sidebar Icons Section */
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 15px;
+}
+
+.sidebar-icon img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.sidebar-icon:hover {
+  color: #1e88e5;
+}
+
+.sidebar-icon span {
+  font-size: 1.1em;
+}
+
+/* Logout Section */
+.logout-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.logout-section button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+.logout-section button:hover {
+  background-color: #d32f2f;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle-btn {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#toggleBtn {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Main Content Styles */
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  flex-grow: 1;
+  transition: margin-left 0.3s;
+}
+
+.main-content.shifted {
+  margin-left: 0; /* Adjust the main content when sidebar is open */
+}
+
+h1 {
+  font-size: 2em;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: #555;
+}
+
+#weatherSection, #newsList, #postsList {
+  margin-top: 30px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.news-item, .post-item {
+  margin-bottom: 20px;
+}
+
+.news-item h3, .post-item h3 {
+  margin-bottom: 10px;
+}
+
+.news-item p, .post-item p {
+  font-size: 1em;
+  color: #555;
+}
+
+a {
+  color: #1e88e5;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Bottom Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar a {
+  padding: 10px;
+}
+
+.navbar img {
+  width: 30px;
+  height: 30px;
+}

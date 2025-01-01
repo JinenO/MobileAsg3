@@ -1,50 +1,93 @@
-/* news.css */
+/* News Page Styles */
 body {
-    background-color: #f0f8ff;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.news-container {
-    width: 50%;
-    margin: 50px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
+.main-content {
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-form input {
-    width: 100%;
+.navbar, .navbar-bottom {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
     padding: 10px;
-    margin-bottom: 10px;
 }
 
-.alert {
+.navbar a, .navbar-bottom a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100%;
+    top: 0;
+  }
+  
+  .sidebar .profile {
     text-align: center;
+  }
+  
+  .sidebar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar h3, .sidebar p {
+    margin: 0;
+    font-size: 14px;
+    color: #ddd;
+  }
+  
+  .sidebar h3 {
+    font-size: 18px;
     font-weight: bold;
-}
+  }
 
-.mt-3 {
+#newsList {
     margin-top: 20px;
 }
 
-.news-article {
-    margin-bottom: 20px;
+.newsItem {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.news-article h3 {
-    font-size: 1.2rem;
+.newsItem:hover {
+    background-color: #e0e0e0;
 }
 
-.news-article p {
-    font-size: 1rem;
+.newsItem h2 {
+    margin: 0;
+}
+
+.newsItem p {
+    margin: 10px 0;
+}
+
+#menuBtn {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+/* Bottom navbar icons */
+.navbar-bottom img {
+    width: 30px;
+    height: 30px;
 }

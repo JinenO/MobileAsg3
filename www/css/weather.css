@@ -1,55 +1,83 @@
-/* weather.css */
+/* Weather Page Styles */
 body {
-    background-color: #f0f8ff;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.weather-container {
-    width: 50%;
-    margin: 50px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
+.main-content {
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-form input {
-    width: 100%;
+.navbar, .navbar-bottom {
+    display: flex;
+    justify-content: center;
+    background-color: #333;
     padding: 10px;
-    margin-bottom: 10px;
 }
 
-.alert {
-    text-align: center;
-    font-weight: bold;
+.navbar a, .navbar-bottom a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
 }
 
-.mt-3 {
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: none;
+}
+
+#sidebar .profile img {
+    width: 80px;
+    border-radius: 50%;
+}
+
+#sidebar button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+input, button {
+    padding: 10px;
+    margin: 10px 0;
+    width: 200px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#temperatureChart {
     margin-top: 20px;
 }
 
-.btn-back {
-    display: inline-block;
+#forecastBtn {
     margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-#weather-results {
-    display: none;
-    text-align: center;
-    font-size: 1.2rem;
+#menuBtn {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
-#error-message {
-    display: none;
-    color: red;
-    text-align: center;
+/* Bottom navbar icons */
+.navbar-bottom img {
+    width: 30px;
+    height: 30px;
 }
+

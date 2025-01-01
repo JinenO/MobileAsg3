@@ -1,26 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Access</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+  <!-- Toggle Button for Sidebar -->
+  <div class="sidebar-toggle-btn">
+    <img src="img/menuIcon.jpg" alt="Menu" id="toggleBtn" />
+  </div>
 
-    <!-- API Buttons Page -->
-    <div class="container">
-        <h1>Welcome to the API Section!</h1>
-        <button onclick="fetchWeather()" class="btn btn-primary">Weather API</button>
-        <button onclick="fetchNews()" class="btn btn-secondary">News API</button>
-        <button onclick="fetchSocialMedia()" class="btn btn-info">Social Media API</button>
+  <!-- Sidebar with profile and icons -->
+  <div class="sidebar" id="sidebar">
+    <div class="profile">
+      <img id="profilePic" src="default-profile.jpg" alt="Profile Picture" />
+      <h3 id="username"></h3>
+      <p id="email"></p>
+    </div>
+    <div class="logout-section">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
 
-        <div id="weatherResult"></div>
-        <div id="newsResult"></div>
-        <div id="socialMediaResult"></div>
+  <!-- Main content area -->
+  <div class="main-content" id="mainContent">
+    <h1>Welcome to the Home Page!</h1>
+
+    <!-- Weather Section -->
+    <div id="weatherSection">
+      <h2>Current Weather</h2>
+      <p id="weatherDetails">Loading weather...</p>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="app.js"></script>
+    <!-- News Section -->
+    <div id="newsList">
+      <h2>Latest News</h2>
+      <!-- News items will be dynamically inserted here -->
+    </div>
+
+    <!-- Social Media Posts Section -->
+    <div id="postsList">
+      <h2>Recent Social Media Posts</h2>
+      <!-- Social Media posts will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="navbar">
+    <a href="weather.html"><img src="img/weatherIcon.jpg" alt="Weather"></a>
+    <a href="socialMedia.html"><img src="img/socialMediaIcon.jpg" alt="Social Media"></a>
+    <a href="news.html"><img src="img/newsIcon.jpg" alt="News"></a>
+  </div>
+
+  <script src="js/home.js"></script>
 </body>
 </html>
+

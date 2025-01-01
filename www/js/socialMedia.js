@@ -1,58 +1,58 @@
-document.getElementById('social-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the form from refreshing the page
+const apiKey = "YOUR_SOCIAL_MEDIA_API_KEY"; // Replace with actual API key
 
-    // Get the hashtag or keyword from the input field
-    const hashtag = document.getElementById('hashtag').value;
+// Add an event listener to toggle the sidebar on button click
+toggleBtn.addEventListener('click', function() {
+    sidebar.classList.toggle('open');  // Toggle the 'open' class on the sidebar
+    mainContent.classList.toggle('shifted');  // Adjust the main content to shift when sidebar is open
+  });
 
-    if (!hashtag) {
-        alert("Please enter a hashtag or keyword.");
-        return;
-    }
-
-    // Twitter API Bearer Token (You need to create a Twitter Developer account to get this)
-    const bearerToken = 'YOUR_TWITTER_BEARER_TOKEN'; // Replace with your Twitter Bearer Token
-    const apiUrl = `https://api.twitter.com/2/tweets/search/recent?query=${hashtag}&max_results=10`;
-
-    // Make the API request to Twitter
-    fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${bearerToken}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.data && data.data.length > 0) {
-            let postsHTML = '';
-            data.data.forEach(post => {
-                postsHTML += `
-                    <div class="social-post">
-                        <p><strong>Tweet:</strong> ${post.text}</p>
-                        <p><strong>Posted on:</strong> ${post.created_at}</p>
-                        <hr>
-                    </div>
-                `;
-            });
-
-            // Display social media posts
-            document.getElementById('posts-list').innerHTML = postsHTML;
-            document.getElementById('error-message').style.display = 'none';
-            document.getElementById('social-results').style.display = 'block';
-        } else {
-            // Show error message if no posts found
-            document.getElementById('error-message').textContent = 'No posts found for this hashtag/keyword.';
-            document.getElementById('error-message').style.display = 'block';
-            document.getElementById('social-results').style.display = 'none';
-        }
-    })
-    .catch(error => {
-        document.getElementById('error-message').textContent = 'Error fetching posts. Please try again later.';
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('social-results').style.display = 'none';
-    });
+// Log out functionality
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    alert('Logged out');
+    window.location.href = 'login.html'; // Redirect to login page
 });
+
+// Fetch Social Media Posts (API call)
+function fetchSocialMediaPosts() {
+    const apiUrl = `https://api.example.com/socialmedia?api_key=${apiKey}`; // Example URL, replace with actual
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => displayPosts(data))
+        .catch(error => console.error('Error fetching social media posts:', error));
+}
+
+// Function to Display Posts
+function displayPosts(posts) {
+    const postsContainer = document.getElementById('socialMediaPosts');
+    postsContainer.innerHTML = ''; // Clear previous content
+
+    posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+
+        postElement.innerHTML = `
+            <div class="post-header">
+                <img src="${post.profilePic}" alt="Profile Picture">
+                <h3>${post.author}</h3>
+            </div>
+            <div class="post-content">
+                ${post.content}
+            </div>
+            <div class="post-footer">
+                <span>${post.timestamp}</span>
+                <span>👍 ${post.likes} Likes</span>
+                <span>💬 ${post.comments} Comments</span>
+            </div>
+            <div class="actions">
+                <button>Like</button>
+                <button>Comment</button>
+            </div>
+        `;
+
+        postsContainer.appendChild(postElement);
+    });
+}
+
+// Call Fetch Posts on Page Load
+fetchSocialMediaPosts();
